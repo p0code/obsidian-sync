@@ -4,6 +4,7 @@ import * as NodePath from "node:path";
 import * as NodeCrypto from "@effect/platform-node/NodeCrypto";
 import * as NodeServices from "@effect/platform-node/NodeServices";
 import { PluginContext, PluginError } from "@t3tools/plugin-api";
+import * as HostProcess from "@t3tools/shared/HostProcess";
 import * as PtyAdapter from "@t3tools/shared/PtyAdapter";
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
@@ -35,14 +36,15 @@ const fakeLoginPty = Layer.succeed(
   PtyAdapter.PtyAdapter,
   PtyAdapter.PtyAdapter.of({
     spawn: (options) =>
-      Effect.sync(() => {
+      Effect.gen(function* () {
+        const platform = yield* HostProcess.Platform;
         const prompts = ["Email: ", "Password: ", "2FA code: "];
         const values: Array<string> = [];
         let buffer = "";
         let dataListener: ((data: string) => void) | undefined;
         let exitListener: ((event: PtyAdapter.PtyExitEvent) => void) | undefined;
         const authPath =
-          process.platform === "linux"
+          platform === "linux"
             ? NodePath.join(options.env.HOME ?? "", ".config/obsidian-headless/auth_token")
             : NodePath.join(options.env.HOME ?? "", ".obsidian-headless/auth_token");
         return {
@@ -153,11 +155,7 @@ describe("makeSharedMemorySync", () => {
 
         const sync = yield* makeSharedMemorySync.pipe(
           Effect.provide(
-            Layer.mergeAll(
-              pluginContextLayer,
-              fakeLoginPty,
-              Layer.succeed(Binary, binary),
-            ),
+            Layer.mergeAll(pluginContextLayer, fakeLoginPty, Layer.succeed(Binary, binary)),
           ),
         );
 

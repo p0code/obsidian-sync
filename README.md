@@ -4,7 +4,7 @@ An off-by-default [p0code](https://github.com/p0code/p0code) server plugin. It s
 
 Turn it on under **Settings → Plugins**, sign in to Obsidian, then pick a vault.
 
-This repository ([p0code/obsidian-sync](https://github.com/p0code/obsidian-sync)) is mounted as the `plugins/obsidian-shared-memory` git submodule of p0code and built inside that workspace, where it imports `@t3tools/plugin-api`, `@t3tools/contracts` and `@t3tools/shared`. Develop it from a p0code checkout:
+This repository ([p0code/obsidian-sync](https://github.com/p0code/obsidian-sync)) is mounted as the `plugins/obsidian-shared-memory` git submodule of p0code and built inside that workspace, where it imports `@t3tools/plugin-api` and `@t3tools/shared`. Develop it from a p0code checkout:
 
 ```sh
 git clone --recurse-submodules https://github.com/p0code/p0code
