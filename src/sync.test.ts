@@ -150,6 +150,7 @@ describe("makeSharedMemorySync", () => {
               read: () => Effect.succeed(null),
               activeThreadIds: Effect.succeed([]),
             },
+            usage: { dailyTotals: () => Effect.succeed([]) },
           }),
         );
 
