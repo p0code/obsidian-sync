@@ -11,3 +11,7 @@ git clone --recurse-submodules https://github.com/p0code/p0code
 cd p0code && pnpm install
 pnpm --filter @t3tools/plugin-obsidian-shared-memory typecheck
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).
