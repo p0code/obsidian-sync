@@ -119,6 +119,9 @@ describe("makeSharedMemorySync", () => {
         const storage = new Map<string, string>();
         const statuses: Array<string | null> = [];
         const unused = Effect.fail(new PluginError({ message: "unused" }));
+        const notSupported = Effect.fail(
+          new PluginError({ message: "data backup is not supported in this test" }),
+        );
         const pluginContextLayer = Layer.succeed(
           PluginContext,
           PluginContext.of({
@@ -149,6 +152,12 @@ describe("makeSharedMemorySync", () => {
               changes: Stream.empty,
               read: () => Effect.succeed(null),
               activeThreadIds: Effect.succeed([]),
+            },
+            dataBackup: {
+              snapshot: notSupported,
+              stageRestore: () => notSupported,
+              pendingRestore: notSupported,
+              cancelRestore: notSupported,
             },
             usage: { dailyTotals: () => Effect.succeed([]) },
           }),
