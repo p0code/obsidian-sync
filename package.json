@@ -1,5 +1,6 @@
 {
   "name": "@t3tools/plugin-obsidian-shared-memory",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,7 +15,8 @@
   },
   "scripts": {
     "typecheck": "effect-tsgo tsrs --noEmit",
-    "test": "vp test run --config ../../vite.config.ts --dir ."
+    "test": "vp test run --config ../../vite.config.ts --dir .",
+    "bundle": "node scripts/build-bundle.mjs"
   },
   "dependencies": {
     "@t3tools/plugin-api": "workspace:*",

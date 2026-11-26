@@ -10,11 +10,12 @@ export const obsidianSharedMemory = definePlugin({
     name: "Obsidian shared memory",
     description:
       "Syncs a shared agent memory folder through Obsidian Sync (Obsidian Headless) and tells every agent turn where it is, so agents on all your machines read and add to the same notes.",
-    version: "0.1.0",
+    version: "0.1.1",
     unofficial: true,
     externalServices: ["Obsidian Sync"],
     capabilities: ["network:outbound", "process:spawn", "agent:instructions"],
     httpRoutes: [],
+    apiVersion: 1,
   },
   actions: sharedMemoryActions,
   start: Effect.gen(function* () {
@@ -29,3 +30,5 @@ export const obsidianSharedMemory = definePlugin({
     };
   }),
 });
+
+export default obsidianSharedMemory;
